@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    userName：<input type="text" id="username"> <br />
+    passWord：<input type="text" id="password"><br />
+    <button id="postBtn">登录</button>
+    <button id="userBtn">获取用户</button>
+    <button id="logoutBtn">退出登录</button>
+    <h2 id="result"></h2>
+</body>
+<script>
+    $(function () {
+
+        $('#postBtn').click(function () {
+            const user = $("#username").val()
+            const password = $("#password").val()
+            const params = {
+                "username": user,
+                "password": password
+            }
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8080/api/login",
+                dataType: "json",
+                data: params,
+                // headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                success: function (data) {
+                    $('#result').text(JSON.stringify(data))
+                }
+
+            });
+        });
+
+
+        $('#userBtn').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8080/api/user",
+                dataType: "json",
+                // headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                success: function (data) {
+                    $('#result').text(JSON.stringify(data))
+                }
+
+            });
+        });
+
+        $('#logoutBtn').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8080/api/logout",
+                dataType: "json",
+                // headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                success: function (data) {
+                    $('#result').text(JSON.stringify(data))
+                }
+
+            });
+        });
+
+    })
+</script>
+
+</html>
